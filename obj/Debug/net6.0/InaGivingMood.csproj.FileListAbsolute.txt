@@ -1,0 +1,8 @@
+/home/leah/projects/InaGivingMood/bin/Debug/net6.0/InaGivingMood.deps.json
+/home/leah/projects/InaGivingMood/bin/Debug/net6.0/InaGivingMood.dll
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.csproj.AssemblyReference.cache
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.GeneratedMSBuildEditorConfig.editorconfig
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.AssemblyInfoInputs.cache
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.AssemblyInfo.cs
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.csproj.CoreCompileInputs.cache
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.dll

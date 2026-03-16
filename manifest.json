@@ -1,0 +1,10 @@
+{
+  "Name": "In a Giving Mood",
+  "Author": "Gormageddon",
+  "Version": "1.0.0",
+  "Description": "After talking to a towns person for 30 seconds, items in inventory that are liked or loved gifts will be highlighted",
+  "UniqueID": "Gormageddon.InaGivingMood",
+  "EntryDll": "InaGivingMood.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}

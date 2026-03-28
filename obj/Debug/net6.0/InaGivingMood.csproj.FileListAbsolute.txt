@@ -6,3 +6,4 @@
 /home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.AssemblyInfo.cs
 /home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.csproj.CoreCompileInputs.cache
 /home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.dll
+/home/leah/projects/InaGivingMood/obj/Debug/net6.0/InaGivingMood.sourcelink.json

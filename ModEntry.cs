@@ -85,29 +85,6 @@ namespace GiftTasteHighlighter
         }
 
 
-        private Item? GetItemUnderCursor()
-        {
-            if (Game1.activeClickableMenu is GameMenu gameMenu && gameMenu.GetCurrentPage() is InventoryPage inventoryPage)
-            {
-                return inventoryPage.inventory.getItemAt(Game1.getMouseX(), Game1.getMouseY());
-            }
-    
-            var toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
-            if (toolbar != null)
-            {
-                foreach (var button in toolbar.buttons)
-                {
-                    if (button.containsPoint(Game1.getMouseX(), Game1.getMouseY()))
-                    {
-                        int slotIndex = toolbar.buttons.IndexOf(button);
-                        if (slotIndex >= 0 && slotIndex < Game1.player.Items.Count)
-                            return Game1.player.Items[slotIndex];
-                    }
-                }
-            }
-            return null;
-        }
-
         private Color GetHighlightColor(Item item)
         {
             NPC? nearbyNpc = Game1.currentLocation.characters

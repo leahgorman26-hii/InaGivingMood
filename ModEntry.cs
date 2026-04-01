@@ -134,14 +134,7 @@ namespace GiftTasteHighlighter
         {
             var item = GetItemUnderCursor();
             if (item == null) 
-            //{
-             //   Monitor.Log("No item under cursor", LogLevel.Debug);
                 return;
-            //}
-            //else
-           // {
-            //    Monitor.Log($"Hovering: {item.Name}", LogLevel.Debug);
-            //}
 
             var npcs = Utility.getAllCharacters();
 
@@ -150,47 +143,78 @@ namespace GiftTasteHighlighter
 
             foreach (var npc in npcs)
             {
-                //if (!npc.IsVillager) continue;
-
                 int taste = npc.getGiftTasteForThisItem(item);
 
                 if (taste == 0) loved.Add(npc);
                 else if (taste == 2) liked.Add(npc);
             }
+            
+            int x = 0;
+            int y = 0;
 
-            int x = Game1.getMouseX() - 10;
-            int y = Game1.getMouseY() + 80;
+            InventoryPage? inventoryPage = null;
 
-            //int x = 500;
-            //int y = 500;
+            if (Game1.activeClickableMenu is GameMenu gameMenu)
+            {
+                inventoryPage = gameMenu.GetCurrentPage() as InventoryPage;
+            }
+
+            var toolbar = Game1.onScreenMenus.OfType<Toolbar>().FirstOrDefault();
+
+            bool toolbarAtTop = toolbar != null && toolbar.yPositionOnScreen < Game1.viewport.Height / 2;
+            bool inventoryOpen = inventoryPage != null;
+
+            if (toolbarAtTop || inventoryOpen)
+            {
+                x = Game1.getMouseX() - 10;
+                y = Game1.getMouseY() + 80;
+            }
+            else
+            {
+                x = Game1.getMouseX() - 5;
+                y = Game1.getMouseY() - 200;
+            }
+            
 
             int size = 32;
             int spacing = 4;
 
-            // Draw loved first
-            foreach (var npc in loved)
+            int totalIcons = loved.Count + liked.Count;
+            int height = totalIcons * (size + spacing);
+            int width = size;
+
+            if (liked.Count > 0 || loved.Count > 0)
             {
+                IClickableMenu.drawTextureBox(
+                    spriteBatch,
+                    x - 12,
+                    y - 12,
+                    width + 24,
+                    height + 24,
+                    Color.White
+                );
+
+
+                foreach (var npc in loved)
+                {
                 
-                spriteBatch.Draw(npc.Portrait,
-                new Rectangle(x, y, size, size),
-                new Rectangle(0, 0, 64, 64),
-                Color.White);
+                    spriteBatch.Draw(npc.Portrait,
+                    new Rectangle(x, y, size, size),
+                    new Rectangle(0, 0, 64, 64),
+                    Color.White);
 
-                y += size + spacing;
-            }
+                    y += size + spacing;
+                }   
 
-            // Move to next row for liked
-            //x = Game1.getMouseX() + 32;
-            //y += size + spacing;
+                foreach (var npc in liked)
+                {
+                    spriteBatch.Draw(npc.Portrait,
+                    new Rectangle(x, y, size, size),
+                    new Rectangle(0, 0, 64, 64),
+                    Color.White);
 
-            foreach (var npc in liked)
-            {
-                spriteBatch.Draw(npc.Portrait,
-                new Rectangle(x, y, size, size),
-                new Rectangle(0, 0, 64, 64),
-                Color.White);
-
-                y += size + spacing;
+                    y += size + spacing;
+                }
             }
         }
 
@@ -201,9 +225,7 @@ namespace GiftTasteHighlighter
 
         
 
-        //cursor is working but images in wrong area
-        //no back ground
-        //doesn't move with the pop-up box
+        
         //Add outline if liked or loved?
         
         //For the first part change to outline instead of highlight?

@@ -203,6 +203,14 @@ namespace GiftTasteHighlighter
                     new Rectangle(0, 0, 64, 64),
                     Color.White);
 
+                    //Draw heart
+                    spriteBatch.Draw(
+                    Game1.mouseCursors,
+                    new Rectangle(x + size - 12, y + 2, 10, 10), // position + scale
+                    new Rectangle(211, 428, 7, 6),
+                    Color.White
+                    );
+
                     y += size + spacing;
                 }   
 
@@ -222,12 +230,5 @@ namespace GiftTasteHighlighter
         {
             DrawGiftTasteIcons(e.SpriteBatch);
         }
-
-        
-
-        
-        //Add outline if liked or loved?
-        
-        //For the first part change to outline instead of highlight?
     }
 }

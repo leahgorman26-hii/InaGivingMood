@@ -5,6 +5,8 @@ using StardewValley.Menus;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Linq;
+using StardewValley.Characters;
+using StardewValley.Objects;
 
 namespace GiftTasteHighlighter
 {
@@ -87,26 +89,59 @@ namespace GiftTasteHighlighter
             }
         }
 
-        private Color GetHighlightColor(Item? item)
+private Color GetHighlightColor(Item? item)
+{
+    if (item == null)
+        return Color.Red * 0f;
+
+    // Check nearby farm animals (separate from NPC hierarchy)
+    FarmAnimal? nearbyAnimal = (Game1.currentLocation as AnimalHouse)?.animals.Values
+        .FirstOrDefault(a => Vector2.Distance(Game1.player.Tile, a.Tile) <= 2f);
+
+    if (nearbyAnimal != null)
+    {
+        return item.Name == "Hay"
+            ? Color.Green * 0.4f
+            : Color.Red * 0f;
+    }
+
+    // Check nearby NPCs
+    NPC? nearbyNpc = Game1.currentLocation.characters
+        .FirstOrDefault(c => Vector2.Distance(Game1.player.Tile, c.Tile) <= 2f);
+
+    if (nearbyNpc == null)
+        return Color.Red * 0f;
+
+    if (nearbyNpc is Pet)
+        return Color.Red * 0f;
+
+    if (nearbyNpc is Horse)
+    {
+        return item.Name == "Carrot"
+            ? Color.Green * 0.4f
+            : Color.Red * 0f;
+    }
+
+    if (nearbyNpc.IsVillager && Game1.player.friendshipData.ContainsKey(nearbyNpc.Name))
+    {
+        //Furnatire doens't work, clothing works but need to add rings, boots and hats
+        if (nearbyNpc.CanReceiveGifts() && !(item is Tool) && !(item is Furniture) && !(item is Clothing))
         {
-            NPC? nearbyNpc = Game1.currentLocation.characters
-                 .FirstOrDefault(c => Vector2.Distance(Game1.player.Tile, c.Tile) <= 2f);
-        
-            if (nearbyNpc == null || item == null) 
-                return Color.Red * 0f; 
-
-            // getGiftTasteForThisItem returns: 0 (Love), 2 (Like), 4 (Dislike), 6 (Hate), 8 (Neutral)
             int taste = nearbyNpc.getGiftTasteForThisItem(item);
-
             return taste switch
             {
                 0 => Color.Purple * 0.4f, // Loved
                 2 => Color.Green * 0.4f,  // Liked
                 4 => Color.Orange * 0.4f, // Disliked
-                6 => Color.Red * 0.4f,  // Hated
+                6 => Color.Red * 0.4f,    // Hated
                 _ => Color.Gray * 0.4f    // Neutral
             };
         }
+        return Color.Red * 0f;
+    }
+
+    return Color.Red * 0f;
+}
 
         private Item? GetItemUnderCursor() { 
             if (Game1.activeClickableMenu is GameMenu gameMenu && gameMenu.GetCurrentPage() is InventoryPage inventoryPage) 
@@ -148,6 +183,8 @@ namespace GiftTasteHighlighter
                 if (taste == 0) loved.Add(npc);
                 else if (taste == 2) liked.Add(npc);
             }
+
+            //Add if number of liked adn loved = everyone then add univerally liked/loved icon
             
             int x = 0;
             int y = 0;
@@ -232,3 +269,15 @@ namespace GiftTasteHighlighter
         }
     }
 }
+
+/*
+Check if character giftable - horses only carrots, dogs only bones or clay, animals chickens etc hay???
+Figure out why honey isn't working
+Why diamond not showing everyone
+Made symbol for universally liked or loved
+stop highlighting ungiftable items
+Make configuration to only include selected character and to turn on and off features
+Add for pop up when in box 
+
+*/
+

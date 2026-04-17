@@ -2,9 +2,9 @@
   "Name": "In a Giving Mood",
   "Author": "Gormageddon",
   "Version": "1.0.0",
-  "Description": "After talking to a towns person for 30 seconds, items in inventory that are liked or loved gifts will be highlighted",
+  "Description": "When within 2 squares of a villager, items in inventory and hotbar that are liked or loved gifts will be highlighted as such (Purple=loved, Green=Liked, Grey=Neutral, Orange=Dislike, Red= Hated). When hovering over an item, the image of villagers who like or love the itmem will appear. Villages that love the gift will appear with a heart.",
   "UniqueID": "Gormageddon.InaGivingMood",
   "EntryDll": "InaGivingMood.dll",
-  "MinimumApiVersion": "4.0.0",
-  "UpdateKeys": [ "Nexus:2400" ]
+  "MinimumApiVersion": "4.5.0",
+  "UpdateKeys": [ "Nexus:44608" ]
 }

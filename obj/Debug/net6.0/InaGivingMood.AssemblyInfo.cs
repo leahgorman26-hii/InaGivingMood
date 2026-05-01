@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InaGivingMood")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db4514bf4dff48e77f6afb0a15989a2398eab080")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9494ac0c6c19301a697ce8881a2d56ac90f8bdb")]
 [assembly: System.Reflection.AssemblyProductAttribute("InaGivingMood")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InaGivingMood")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

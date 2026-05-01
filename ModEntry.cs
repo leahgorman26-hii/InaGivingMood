@@ -211,26 +211,61 @@ private Color GetHighlightColor(Item? item)
             int height = totalIcons * (size + spacing);
             int width = size;
 
-            /*
             int totalGiftable = npcs.Count(n => n.CanReceiveGifts());
 
             bool universallyLoved = loved.Count == totalGiftable;
-            bool universallyLiked = liked.Count == totalGiftable;
+            bool universallyLiked = liked.Count +loved.Count == totalGiftable-6;
+
+
 
             if (universallyLoved)
-            {
-                // draw big heart only
+            {   
+                height=32;
+                
+                IClickableMenu.drawTextureBox(
+                    spriteBatch,
+                    x + 10,
+                    y - 12,
+                    width + 24,
+                    height + 24,
+                    Color.White
+                );
+
+                //Draw heart
+                int scale = 5;
+
+                spriteBatch.Draw(
+                Game1.mouseCursors,
+                new Rectangle(x + size - 12, y + 2, 7 * scale, 6 * scale),
+                new Rectangle(211, 428, 7, 6),
+                Color.White
+                );
                 
                 return;
             }
 
-            if (universallyLiked)
-            {
-                // draw small heart only
+            else if (universallyLiked)
+            {   
+                IClickableMenu.drawTextureBox(
+                    spriteBatch,
+                    x - 12,
+                    y - 12,
+                    width + 24,
+                    height + 24,
+                    Color.White
+                );
+
+                //Draw heart
+                spriteBatch.Draw(
+                Game1.mouseCursors,
+                new Rectangle(x + size - 12, y + 2, 10, 10), // position + scale
+                new Rectangle(211, 428, 7, 6),
+                Color.White
+                );
                 
                 return;
-                }
-            */
+            }
+
             if (liked.Count > 0 || loved.Count > 0) 
             {
                 IClickableMenu.drawTextureBox(
@@ -282,9 +317,10 @@ private Color GetHighlightColor(Item? item)
 
 /*
 ✔Check if character giftable - , animals chickens etc hay???
-Figure out why honey isn't working
-Why diamond not showing everyone
-Made symbol for universally liked or loved
+✔Figure out why honey isn't working
+✔Why diamond not showing everyone
+✔Made symbol for universally loved
+Made symbol for universally liked
 ✔stop highlighting ungiftable items
 Make configuration to only include selected character and to turn on and off features
 Add for pop up when in chest

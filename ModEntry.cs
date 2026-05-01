@@ -167,14 +167,16 @@ private Color GetHighlightColor(Item? item)
 
             foreach (var npc in npcs)
             {
-                int taste = npc.getGiftTasteForThisItem(item);
+                if (!(npc ==null) && npc.CanReceiveGifts() && !(npc.Portrait == null))
+                {
+                    int taste = npc.getGiftTasteForThisItem(item);
 
-                if (taste == 0) loved.Add(npc);
-                else if (taste == 2) liked.Add(npc);
+                    if (taste == 0) loved.Add(npc);
+                    else if (taste == 2) liked.Add(npc);
+                }
             }
 
-            //Add if number of liked and loved = everyone then add univerally liked/loved icon
-            
+
             int x = 0;
             int y = 0;
 
@@ -209,7 +211,27 @@ private Color GetHighlightColor(Item? item)
             int height = totalIcons * (size + spacing);
             int width = size;
 
-            if (liked.Count > 0 || loved.Count > 0)
+            /*
+            int totalGiftable = npcs.Count(n => n.CanReceiveGifts());
+
+            bool universallyLoved = loved.Count == totalGiftable;
+            bool universallyLiked = liked.Count == totalGiftable;
+
+            if (universallyLoved)
+            {
+                // draw big heart only
+                
+                return;
+            }
+
+            if (universallyLiked)
+            {
+                // draw small heart only
+                
+                return;
+                }
+            */
+            if (liked.Count > 0 || loved.Count > 0) 
             {
                 IClickableMenu.drawTextureBox(
                     spriteBatch,
@@ -222,8 +244,7 @@ private Color GetHighlightColor(Item? item)
 
 
                 foreach (var npc in loved)
-                {
-                
+                {                
                     spriteBatch.Draw(npc.Portrait,
                     new Rectangle(x, y, size, size),
                     new Rectangle(0, 0, 64, 64),

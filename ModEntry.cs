@@ -112,20 +112,9 @@ private Color GetHighlightColor(Item? item)
     if (nearbyNpc == null)
         return Color.Red * 0f;
 
-    if (nearbyNpc is Pet)
-        return Color.Red * 0f;
-
-    if (nearbyNpc is Horse)
-    {
-        return item.Name == "Carrot"
-            ? Color.Green * 0.4f
-            : Color.Red * 0f;
-    }
-
     if (nearbyNpc.IsVillager && Game1.player.friendshipData.ContainsKey(nearbyNpc.Name))
-    {
-        //Furnatire doens't work, clothing works but need to add rings, boots and hats
-        if (nearbyNpc.CanReceiveGifts() && !(item is Tool) && !(item is Furniture) && !(item is Clothing))
+    { 
+        if (nearbyNpc.CanReceiveGifts() && item.canBeGivenAsGift())
         {
             int taste = nearbyNpc.getGiftTasteForThisItem(item);
             return taste switch
@@ -184,7 +173,7 @@ private Color GetHighlightColor(Item? item)
                 else if (taste == 2) liked.Add(npc);
             }
 
-            //Add if number of liked adn loved = everyone then add univerally liked/loved icon
+            //Add if number of liked and loved = everyone then add univerally liked/loved icon
             
             int x = 0;
             int y = 0;
@@ -271,13 +260,13 @@ private Color GetHighlightColor(Item? item)
 }
 
 /*
-Check if character giftable - horses only carrots, dogs only bones or clay, animals chickens etc hay???
+✔Check if character giftable - , animals chickens etc hay???
 Figure out why honey isn't working
 Why diamond not showing everyone
 Made symbol for universally liked or loved
-stop highlighting ungiftable items
+✔stop highlighting ungiftable items
 Make configuration to only include selected character and to turn on and off features
-Add for pop up when in box 
+Add for pop up when in chest
 
 */
 

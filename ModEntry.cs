@@ -164,6 +164,7 @@ private Color GetHighlightColor(Item? item)
 
             var loved = new List<NPC>();
             var liked = new List<NPC>();
+            var disliked = new List<NPC>();
 
             foreach (var npc in npcs)
             {
@@ -173,6 +174,7 @@ private Color GetHighlightColor(Item? item)
 
                     if (taste == 0) loved.Add(npc);
                     else if (taste == 2) liked.Add(npc);
+                    else if (taste == 4) disliked.Add(npc);
                 }
             }
 
@@ -214,7 +216,7 @@ private Color GetHighlightColor(Item? item)
             int totalGiftable = npcs.Count(n => n.CanReceiveGifts());
 
             bool universallyLoved = loved.Count == totalGiftable;
-            bool universallyLiked = liked.Count +loved.Count == totalGiftable-6;
+            bool universallyLiked = liked.Count + loved.Count > totalGiftable - 6;
 
 
 
@@ -231,6 +233,7 @@ private Color GetHighlightColor(Item? item)
                     Color.White
                 );
 
+                
                 //Draw heart
                 int scale = 5;
 
@@ -240,12 +243,15 @@ private Color GetHighlightColor(Item? item)
                 new Rectangle(211, 428, 7, 6),
                 Color.White
                 );
-                
+
                 return;
             }
 
             else if (universallyLiked)
             {   
+                totalIcons = disliked.Count +1;
+                height = totalIcons * (size + spacing);
+
                 IClickableMenu.drawTextureBox(
                     spriteBatch,
                     x - 12,
@@ -255,14 +261,37 @@ private Color GetHighlightColor(Item? item)
                     Color.White
                 );
 
+                int scale = 2;
+
                 //Draw heart
                 spriteBatch.Draw(
                 Game1.mouseCursors,
-                new Rectangle(x + size - 12, y + 2, 10, 10), // position + scale
+                new Rectangle(x + size - 12, y + 2,  7 * scale, 6 * scale), // position + scale
                 new Rectangle(211, 428, 7, 6),
                 Color.White
                 );
-                
+
+                //disliked list and diplay
+                foreach (var npc in disliked)
+                {          
+                    y += size + spacing;
+
+                    spriteBatch.Draw(npc.Portrait,
+                    new Rectangle(x, y, size, size),
+                    new Rectangle(0, 0, 64, 64),
+                    Color.White);
+
+                    //Adding an X
+                    scale = 2;
+                    spriteBatch.Draw(
+                    Game1.mouseCursors,
+                    new Rectangle(x + size - 12, y + 2, 7 * scale, 6 * scale),
+                    new Rectangle(268, 470, 15, 16),
+                    Color.White
+                    );
+
+                }
+
                 return;
             }
 
@@ -320,7 +349,7 @@ private Color GetHighlightColor(Item? item)
 ✔Figure out why honey isn't working
 ✔Why diamond not showing everyone
 ✔Made symbol for universally loved
-Made symbol for universally liked
+Made symbol for universally liked and -exceptions
 ✔stop highlighting ungiftable items
 Make configuration to only include selected character and to turn on and off features
 Add for pop up when in chest

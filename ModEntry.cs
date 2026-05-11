@@ -154,6 +154,10 @@ private Color GetHighlightColor(Item? item)
             return null; 
         }
 
+
+
+        ////HOVERING 
+
         private void DrawGiftTasteIcons(SpriteBatch spriteBatch)
         {
             var item = GetItemUnderCursor();
@@ -215,7 +219,7 @@ private Color GetHighlightColor(Item? item)
 
             int totalGiftable = npcs.Count(n => n.CanReceiveGifts());
 
-            bool universallyLoved = loved.Count == totalGiftable;
+            bool universallyLoved = loved.Count > totalGiftable -2;
             bool universallyLiked = liked.Count + loved.Count > totalGiftable - 6;
 
 
@@ -243,6 +247,29 @@ private Color GetHighlightColor(Item? item)
                 new Rectangle(211, 428, 7, 6),
                 Color.White
                 );
+
+                //disliked list and diplay
+                totalIcons = disliked.Count +1;
+                height = totalIcons * (size + spacing);
+
+                foreach (var npc in disliked)
+                {          
+                    y += size + spacing;
+
+                    spriteBatch.Draw(npc.Portrait,
+                    new Rectangle(x, y, size, size),
+                    new Rectangle(0, 0, 64, 64),
+                    Color.White);
+
+                    //Adding an X
+                    scale = 2;
+                    spriteBatch.Draw(
+                    Game1.mouseCursors,
+                    new Rectangle(x + size - 12, y + 2, 7 * scale, 6 * scale),
+                    new Rectangle(268, 470, 15, 16),
+                    Color.White
+                    );
+                }
 
                 return;
             }
